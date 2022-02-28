@@ -16,7 +16,7 @@ ENGINE=InnoDB;
 CREATE TABLE admin ( 
     id INT(100) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     id_account INT(100) NOT NULL,
-    FOREIGN KEY (id_account) REFERENCES account(id) 
+    FOREIGN KEY (id_account) REFERENCES account(id) ON DELETE CASCADE
 )
 ENGINE=InnoDB;
 
@@ -26,7 +26,7 @@ CREATE TABLE cinema (
     address VARCHAR(50) NOT NULL,
     city VARCHAR(50) NOT NULL,
     id_admin INT(100) NOT NULL,
-    FOREIGN KEY (id_admin) REFERENCES admin(id)
+    FOREIGN KEY (id_admin) REFERENCES admin(id) ON DELETE CASCADE
 )
 ENGINE=InnoDB;
 
@@ -34,15 +34,15 @@ CREATE TABLE admin_complex (
     id INT(100) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     id_account INT(100) NOT NULL,
     id_cinema INT(100) NOT NULL,
-    FOREIGN KEY (id_account) REFERENCES account(id),
-    FOREIGN KEY (id_cinema) REFERENCES cinema(id)   
+    FOREIGN KEY (id_account) REFERENCES account(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_cinema) REFERENCES cinema(id) ON DELETE CASCADE  
 )
 ENGINE=InnoDB;
 
 CREATE TABLE customer ( 
     id INT(100) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     id_account INT(100) NOT NULL,
-    FOREIGN KEY (id_account) REFERENCES account(id),
+    FOREIGN KEY (id_account) REFERENCES account(id) ON DELETE CASCADE,
     is_student BOOLEAN NOT NULL,
     price_ticket DECIMAL(4,2) NOT NULL
 )
@@ -51,7 +51,7 @@ ENGINE=InnoDB;
 CREATE TABLE room ( 
     id INT(100) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     id_cinema INT(100) NOT NULL,
-    FOREIGN KEY (id_cinema) REFERENCES cinema(id),
+    FOREIGN KEY (id_cinema) REFERENCES cinema(id) ON DELETE CASCADE,
     nb_place INT(100) NOT NULL
 )
 ENGINE=InnoDB;
@@ -59,7 +59,7 @@ ENGINE=InnoDB;
 CREATE TABLE movie ( 
     id INT(100) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     id_room INT(100) NOT NULL,
-    FOREIGN KEY (id_room) REFERENCES room(id),
+    FOREIGN KEY (id_room) REFERENCES room(id) ON DELETE CASCADE,
     time_start DATETIME NOT NULL,
     movie_title VARCHAR(50) NOT NULL
 )
@@ -68,9 +68,9 @@ ENGINE=InnoDB;
 CREATE TABLE booking ( 
     id INT(100) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     id_customer INT(100) NOT NULL,
-    FOREIGN KEY (id_customer) REFERENCES customer(id),
+    FOREIGN KEY (id_customer) REFERENCES customer(id) ON DELETE CASCADE,
     id_movie INT(100) NOT NULL,
-    FOREIGN KEY (id_movie) REFERENCES movie(id),
+    FOREIGN KEY (id_movie) REFERENCES movie(id) ON DELETE CASCADE,
     date_booking DATETIME NOT NULL,
     type_payement VARCHAR(50) NOT NULL
 )

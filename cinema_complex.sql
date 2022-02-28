@@ -52,7 +52,7 @@ CREATE TABLE room (
     id INT(100) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     id_cinema INT(100) NOT NULL,
     FOREIGN KEY (id_cinema) REFERENCES cinema(id),
-    nb_place INT(100) NOT NULL,
+    nb_place INT(100) NOT NULL
 )
 ENGINE=InnoDB;
 
